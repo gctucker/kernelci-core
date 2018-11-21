@@ -1,0 +1,3 @@
+docker build build-base -t kernelci/build-base
+for c in {gcc,clang}-*; do echo $c; tag=gtucker/kernelci-build-$c; echo [$tag]; docker build $c -t $tag && docker push $tag; done
+echo debos; tag=gtucker/kernelci-debos; echo [$tag]; docker build debos -t $tag && docker push $tag
