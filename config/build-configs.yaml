@@ -740,6 +740,27 @@ build_configs:
     tree: evalenti
     branch: 'for-kernelci'
 
+  gtucker:
+    tree: gtucker
+    branch: 'kernelci-local'
+    variants:
+      gcc-8:
+        build_environment: gcc-8
+        fragments: [virtualvideo]
+        architectures:
+          arm: &gtucker_arm
+            base_defconfig: 'multi_v7_defconfig'
+            filters:
+              - passlist:
+                  defconfig: ['multi_v7_defconfig']
+          arm64: &gtucker_arm64
+            filters:
+              - passlist: {defconfig: ['defconfig']}
+          x86_64:
+            base_defconfig: 'x86_64_defconfig'
+            filters:
+              - passlist: {defconfig: ['x86_64_defconfig']}
+
   gtucker_stable:
     tree: gtucker
     branch: 'kernelci-stable'
