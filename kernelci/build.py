@@ -1367,6 +1367,9 @@ def build_kernel(build_env, kdir, arch, defconfig=None, jopt=None,
             target = MAKE_TARGETS.get(arch)
         result = _run_make(jopt=jopt, target=target, **kwargs)
     mods = _kernel_config_enabled(dot_config, 'MODULES')
+    if 'allmodconfig+KCONFIG_ALLCONFIG' in defconfig:
+        print("Disabling modules for this config: {}".format(defconfig))
+        mods = False
     if result and mods:
         result = _run_make(jopt=jopt, target='modules', **kwargs)
     if result and _kernel_config_enabled(dot_config, 'OF_FLATTREE'):
