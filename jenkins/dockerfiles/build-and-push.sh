@@ -25,12 +25,13 @@
 # -d = also rebuild debos
 # -i = also rebuild dt-validation
 # -q = make the builds quiet
+# -Q = also rebuild qemu docker image
 # -t = the prefix to use in docker tags (default is kernelci/)
 
 set -e
 tag_px='kernelci/'
 
-options='npbdikqt:'
+options='npbdikqtQ:'
 while getopts $options option
 do
   case $option in
@@ -42,6 +43,7 @@ do
     k )  k8s=true;;
     q )  quiet="--quiet";;
     t )  tag_px=$OPTARG;;
+    Q )  qemu=true;;
     \? )
         echo "Invalid Option: -$OPTARG" 1>&2
         exit 1
@@ -115,6 +117,18 @@ then
   tag=${tag_px}build-k8s
   echo_build $tag
   docker build ${quiet} ${cache_args} build-k8s -t $tag
+  if [ "x${push}" == "xtrue" ]
+  then
+    echo_push $tag
+    docker push $tag
+  fi
+fi
+
+if [ "x${qemu}" == "xtrue" ]
+then
+  tag=${tag_px}qemu
+  echo_build $tag
+  docker build ${quiet} ${cache_args} qemu -t $tag
   if [ "x${push}" == "xtrue" ]
   then
     echo_push $tag
