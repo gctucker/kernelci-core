@@ -51,12 +51,20 @@ spec:
 
         command: ["/bin/bash", "-x", "-c"]
         args:
-        - >
-            echo nproc=$(nproc);
-            df;
-            free;
-            pwd;
+        - |
+            echo nproc=$(nproc)
+            df
+            free
+            pwd
+            ls -l
             exit 0
+
+#            echo -e \"
+#[kci_build]
+#kdir: ${KDIR}
+#build_env: ${BUILD_ENVIRONMENT}
+#\" > kernelci.conf
+#            cat kernelci.conf
 
 #export KDIR=/scratch/linux && export CCACHE_DISABLE=true && \
 #cd /scratch/kernelci-core &&  \
