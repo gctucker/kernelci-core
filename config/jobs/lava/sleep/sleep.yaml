@@ -13,4 +13,4 @@ params:
 
 run:
     steps:
-        - ./templates/sleep/sleep.sh ${sleep_params}
+        - ./config/jobs/lava/sleep/sleep.sh ${sleep_params}
