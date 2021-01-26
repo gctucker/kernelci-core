@@ -144,7 +144,9 @@ test_plans:
   igt-kms-tegra:
     <<: *igt
     params:
-      <<: *igt-kms-test-list
+      tests: >
+        core_auth
+        drm_read
       drm_driver: "tegra"
 
   igt-kms-exynos:
