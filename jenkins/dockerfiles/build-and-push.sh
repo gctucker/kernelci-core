@@ -31,7 +31,7 @@
 set -e
 tag_px='kernelci/'
 
-options='npbdikqtQ:'
+options='npbdikqQt:'
 while getopts $options option
 do
   case $option in
